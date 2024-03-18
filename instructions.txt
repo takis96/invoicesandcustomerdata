@@ -9,3 +9,5 @@ php artisan migrate (to migrate to the database the tables needed)
 php artisan serve (to run the application)
 
 To test the actions you requested you can use any suitable interface or POSTMAN
+
+I didn't have enough time to finish my Unit tests I can finish them tomorrow if this does not get us out of schedule
