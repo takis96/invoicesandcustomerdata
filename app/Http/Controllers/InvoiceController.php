@@ -50,9 +50,23 @@ class InvoiceController extends Controller
     public function updateStatus($invoiceId)
     {
         try {
-            $invoice = Invoice::findOrFail($invoiceId);
+            $invoice = Invoice::where('invoice_id', $invoiceId)->first();
+            \Log::info('Invoice: ' . $invoice);
             // Update invoice status (e.g., marking as paid)
-            $invoice->update(['is_paid' => true]);
+            try {
+                $updated = $invoice->update(['is_paid' => true]);
+            } catch (\Exception $e) {
+                \Log::error('Error updating invoice: ' . $e->getMessage());
+                return response()->json(['error' => 'Error updating invoice'], 500);
+            }
+            if ($updated) {
+                \Log::info('Invoice after update: ' . $invoice);
+                return response()->json($invoiceId);
+            } else {
+                \Log::error('Failed to update invoice');
+                return response()->json(['error' => 'Failed to update invoice'], 500);
+            }
+            // \Log::info('Invoice: ' . $invoice);
             return response()->json($invoiceId);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Invoice not found'], 404);
@@ -65,6 +79,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = Invoice::findOrFail($invoiceId);
+
             return response()->json($invoice);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Invoice not found'], 404);
