@@ -78,8 +78,8 @@ class InvoiceController extends Controller
     public function getById($invoiceId)
     {
         try {
-            $invoice = Invoice::findOrFail($invoiceId);
-
+            $invoice = Invoice::where('invoice_id', $invoiceId)->first();
+            \Log::info('Invoice: ' . $invoice);
             return response()->json($invoice);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Invoice not found'], 404);

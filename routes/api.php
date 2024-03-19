@@ -12,7 +12,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Invoices Endpoints
 Route::get('/invoices/{customer_id}', [InvoiceController::class, 'getByCustomerId']);
-Route::get('/invoices/{invoice_id}', [InvoiceController::class, 'getById']);
+Route::get('/invoices/{invoice_id}/inv', [InvoiceController::class, 'getById']);
 Route::put('/invoices/{invoice_id}/status', [InvoiceController::class, 'updateStatus']);
 Route::get('/invoices/monthly-revenue', [InvoiceController::class, 'generateMonthlyRevenueReport']);
 
