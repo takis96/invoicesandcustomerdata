@@ -6,8 +6,9 @@ DB_USERNAME=
 DB_PASSWORD=
 After that, you should open the app's route with command line and run the following: 
 php artisan migrate (to migrate to the database the tables needed)
+php artisan db:seed (to load the raw data from `invoices.csv` and `customers.csv` into the database)
 php artisan serve (to run the application)
 
 To test the actions you requested you can use any suitable interface or POSTMAN
 
-I didn't have enough time to finish my Unit tests I can finish them tomorrow if this does not get us out of schedule
+I didn't have enough time to finish my Unit tests, I can finish them tomorrow if this does not get us out of schedule
