@@ -11,12 +11,13 @@ class CustomerController extends Controller
     public function getStatsByCustomerId($customerId)
     {
         try {
+            \Log::info('CustomerId: ' . $customerId);
             $customer = Customer::findOrFail($customerId);
+            \Log::info('Customer: ' . $customer);
             // Calculate statistical information about the customer (example)
             $stats = [
                 'total_invoices' => $customer->invoices->count(),
                 'total_amount_paid' => $customer->invoices->where('is_paid', true)->sum('amount'),
-                // Add more statistical information as needed
             ];
             return response()->json($stats);
         } catch (ModelNotFoundException $e) {
@@ -25,6 +26,7 @@ class CustomerController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
 
     public function getById($customerId)
     {
