@@ -3,13 +3,19 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-$factory->define(Customer::class, function (Faker $faker) {
-    return [
-        'customer_id' => $faker->uuid,
-        'country' => $faker->country,
-        'currency' => $faker->currencyCode,
-    ];
-});
+class CustomerFactory extends Factory
+{
+    protected $model = Customer::class;
 
+    public function definition()
+    {
+        return [
+            'customer_id' => Str::uuid(),
+            'country' => $this->faker->country,
+            'currency' => $this->faker->currencyCode,
+        ];
+    }
+}

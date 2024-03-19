@@ -65,7 +65,6 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = Invoice::findOrFail($invoiceId);
-            dd($invoice);
             return response()->json($invoice);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Invoice not found'], 404);
