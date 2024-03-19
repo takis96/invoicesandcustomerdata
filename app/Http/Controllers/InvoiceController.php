@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
@@ -21,6 +22,7 @@ class InvoiceController extends Controller
 
             // Build query based on request parameters
             $query = Invoice::where('customer_id', $customerId);
+            Log::info($query->toSql(), $query->getBindings());
 
             if ($request->has('currency')) {
                 $query->where('currency', $request->currency);

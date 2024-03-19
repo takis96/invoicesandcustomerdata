@@ -12,14 +12,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Seed customers
-        $customersData = array_map('str_getcsv', file(storage_path('app/customers.csv')));
-
-        foreach ($customersData as $customer) {
-            Customer::create([
-                'customer_id' => $customer[0],
-                'country' => $customer[1],
-                'currency' => $customer[2],
-            ]);
+        $customersFile = fopen(storage_path('app/customers.csv'), 'r');
+        if ($customersFile) {
+            fgetcsv($customersFile); // Skip header row
+            while (($customer = fgetcsv($customersFile)) !== false) {
+                Customer::create([
+                    'customer_id' => $customer[0],
+                    'country' => $customer[1],
+                    'currency' => $customer[2],
+                ]);
+            }
+            fclose($customersFile);
+        } else {
+            // Handle file opening error
+            dump('Error opening customers file.');
         }
 
         $file = fopen(storage_path('app/invoices.csv'), 'r');
