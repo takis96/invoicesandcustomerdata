@@ -60,9 +60,9 @@ class InvoiceController extends Controller
             if ($updated) {
                 return response()->json($invoiceId);
             } else {
+
                 return response()->json(['error' => 'Failed to update invoice'], 500);
             }
-            // \Log::info('Invoice: ' . $invoice);
             return response()->json($invoiceId);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Invoice not found'], 404);
