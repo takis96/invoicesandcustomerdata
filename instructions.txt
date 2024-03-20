@@ -10,5 +10,6 @@ php artisan db:seed (to load the raw data from `invoices.csv` and `customers.csv
 php artisan serve (to run the application)
 
 To test the actions you requested you can use any suitable interface or POSTMAN
+Postman of course, is way quicker for testing routes
 
-I didn't have enough time to finish my Unit tests, I can finish them tomorrow if this does not get us out of schedule
+For any further questions don't hesitate to contact me
