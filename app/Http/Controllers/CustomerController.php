@@ -12,7 +12,6 @@ class CustomerController extends Controller
     {
         try {
             $customer = Customer::findOrFail($customerId);
-            // Calculate statistical information about the customer (example)
             $stats = [
                 'total_invoices' => $customer->invoices->count(),
                 'total_amount_paid' => $customer->invoices->where('is_paid', true)->sum('amount'),

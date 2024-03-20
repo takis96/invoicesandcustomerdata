@@ -13,7 +13,7 @@ class InvoiceController extends Controller
     public function getByCustomerId(Request $request, $customerId)
     {
         try {
-            // Validate request parameters
+            // Validation
             $request->validate([
                 'currency' => 'string',
                 'start_date' => 'date',
@@ -36,7 +36,6 @@ class InvoiceController extends Controller
                 $query->whereDate('invoice_date', '<=', $request->end_date);
             }
 
-            // Retrieve invoices based on filtered query
             $invoices = $query->get();
 
             return response()->json($invoices);
@@ -51,12 +50,8 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = Invoice::where('invoice_id', $invoiceId)->first();
-            // Update invoice status (e.g., marking as paid)
-            try {
+            // Update invoice status
                 $updated = $invoice->update(['is_paid' => true]);
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Error updating invoice'], 500);
-            }
             if ($updated) {
                 return response()->json(['success' => 'Status updated'], 200);
             } else {
@@ -86,7 +81,7 @@ class InvoiceController extends Controller
 
 public function generateMonthlyRevenueReport(Request $request)
 {
-    // Validate request parameters
+    // Validation
     $validator = Validator::make($request->all(), [
         'year' => 'required|integer',
         'month' => 'required|integer|between:1,12',
@@ -97,7 +92,6 @@ public function generateMonthlyRevenueReport(Request $request)
     }
 
     try {
-        // Extract year and month from request
         $year = $request->year;
         $month = $request->month;
 
@@ -108,10 +102,6 @@ public function generateMonthlyRevenueReport(Request $request)
 
         return response()->json(['revenue' => $revenue]);
     } catch (\Exception $e) {
-        // // Log the exception for debugging purposes
-        // \Log::error('Error generating monthly revenue report: ' . $e->getMessage());
-
-        // Return an error response
         return response()->json(['error' => 'Internal Server Error'], 500);
     }
 }
