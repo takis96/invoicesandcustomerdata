@@ -11,9 +11,7 @@ class CustomerController extends Controller
     public function getStatsByCustomerId($customerId)
     {
         try {
-            \Log::info('CustomerId: ' . $customerId);
             $customer = Customer::findOrFail($customerId);
-            \Log::info('Customer: ' . $customer);
             // Calculate statistical information about the customer (example)
             $stats = [
                 'total_invoices' => $customer->invoices->count(),

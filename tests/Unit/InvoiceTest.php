@@ -25,7 +25,7 @@ class InvoiceTest extends TestCase
 
     //     // Simulate a request to the controller endpoint to update the is_paid status
     //     $response = $this->put('/invoices/' . $invoice->invoice_id . '/status', ['is_paid' => true]);
-
+    //     \Log::info('response: ' . $response);
     //     // Assert that the response has a successful status code
     //     $response->assertStatus(200);
 
@@ -34,6 +34,6 @@ class InvoiceTest extends TestCase
 
     //     // Assert that the is_paid status was updated correctly
     //     $this->assertTrue($updatedInvoice->is_paid);
-    }
+    // }
 
 }

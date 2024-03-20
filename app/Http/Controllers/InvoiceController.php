@@ -58,7 +58,7 @@ class InvoiceController extends Controller
                 return response()->json(['error' => 'Error updating invoice'], 500);
             }
             if ($updated) {
-                return response()->json($invoiceId);
+                return response()->json(['success' => 'Status updated'], 200);
             } else {
 
                 return response()->json(['error' => 'Failed to update invoice'], 500);
@@ -83,29 +83,37 @@ class InvoiceController extends Controller
         }
     }
 
-    public function generateMonthlyRevenueReport(Request $request)
-    {
-        // Validate request parameters
-        $validator = Validator::make($request->all(), [
-            'year' => 'required|integer',
-            'month' => 'required|integer|between:1,12',
-        ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
+public function generateMonthlyRevenueReport(Request $request)
+{
+    // Validate request parameters
+    $validator = Validator::make($request->all(), [
+        'year' => 'required|integer',
+        'month' => 'required|integer|between:1,12',
+    ]);
 
-        try {
-            // Generate monthly revenue report based on specific criteria
-            $year = $request->year;
-            $month = $request->month;
-            $revenue = Invoice::whereYear('invoice_date', $year)
-                ->whereMonth('invoice_date', $month)
-                ->sum('amount');
-
-            return response()->json(['revenue' => $revenue]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Internal Server Error'], 500);
-        }
+    if ($validator->fails()) {
+        return response()->json(['error' => $validator->errors()], 400);
     }
+
+    try {
+        // Extract year and month from request
+        $year = $request->year;
+        $month = $request->month;
+
+        // Calculate monthly revenue
+        $revenue = Invoice::whereYear('invoice_date', $year)
+            ->whereMonth('invoice_date', $month)
+            ->sum('amount');
+
+        return response()->json(['revenue' => $revenue]);
+    } catch (\Exception $e) {
+        // // Log the exception for debugging purposes
+        // \Log::error('Error generating monthly revenue report: ' . $e->getMessage());
+
+        // Return an error response
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
+}
+
 }

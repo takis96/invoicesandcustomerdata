@@ -14,7 +14,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/invoices/{customer_id}', [InvoiceController::class, 'getByCustomerId']);
 Route::get('/invoices/{invoice_id}/inv', [InvoiceController::class, 'getById']);
 Route::put('/invoices/{invoice_id}/status', [InvoiceController::class, 'updateStatus']);
-Route::get('/invoices/monthly-revenue', [InvoiceController::class, 'generateMonthlyRevenueReport']);
+Route::post('/invoices/monthly-revenue', [InvoiceController::class, 'generateMonthlyRevenueReport']);
 
 // Customers Endpoints
 Route::get('/customers/{customer_id}', [CustomerController::class, 'getById']);
