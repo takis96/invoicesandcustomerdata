@@ -1,10 +1,10 @@
-For the implementation of the atm simulation i used Laravel with PHP 8.2.0 and MySQL (MariaDB is also fine)
+For the implementation of the assignment i used Laravel with PHP 8.2.0 and MySQL (MariaDB is also fine)
 I decided on Laravel because it gave me the ability to create secure restful api calls for every action needed on the instructions and I could also easily check them with corresponding tests.
 To run the project you will need to clone the project locally and install PHP 8.2.0,  Composer, MySQL and to create a database. After you make sure you have installed Composer(Laravel), PHP, MySQL(or MariaDB), name the database whatever you want and create a user granting all privileges. Update these fields in .env file with what you've created:
 DB_DATABASE=
 DB_USERNAME=
 DB_PASSWORD=
-After that, you should open the app's route with command line and run the following: 
+After that, you should open the app's path with command line and run the following: 
 php artisan migrate (to migrate to the database the tables needed)
 php artisan db:seed (to load the raw data from `invoices.csv` and `customers.csv` into the database)
 php artisan serve (to run the application)
